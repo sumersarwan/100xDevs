@@ -41,6 +41,22 @@ class Calculator {
   getResult() {
     return this.result;
   }
+  calculate(expression) {
+    let newExp = expression.replace(/\s/g, "");
+    let finalExp = newExp.replace(/[^0-9.+*/()-]/g, "");
+
+    if (newExp.length !== finalExp.length) {
+      throw new Error("Invalid characters in expression");
+    }
+    if (finalExp.includes("/0")) {
+      throw new Error("Division by zero is not allowed");
+    }
+    try {
+      this.result = eval(finalExp);
+    } catch (error) {
+      throw new Error("Invalid expression");
+    }
+  }
 }
 
 module.exports = Calculator;
